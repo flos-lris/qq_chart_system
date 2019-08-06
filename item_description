@@ -1,0 +1,69 @@
+ 1 模擬QQ聊天系統
+  2 
+  3 網絡----UDP
+  4 
+  5 實現功能：
+  6     1.用戶注冊
+  7     2.用戶登錄
+  8     3.顯示好友列表
+  9     4.查找和添加好友
+ 10     5.向好友發送消息
+ 11     6.接收好友的消息
+ 12     7.刪除好友
+ 13     8.退出
+ 14 
+ 15 實現細節：
+ 16     1.用戶注冊：需要用戶提供昵稱和密碼，服務端會自動生成一個QQ號（從1000開始）
+ 17     2.用戶登錄：需要用戶提供QQ號和密碼
+ 18     3.用戶上線厚，即可顯示其好友，顯示形式：QQ號[昵稱](在線|不在線)
+ 19     4.系統有用戶的帳號密碼信息文件(passwd.txt)
+ 20     5.爲每一個新注冊用戶創建一個好友信息文件，記錄其好友信息，該文件統一放到USERS/  下，以QQ號作文文件的名字
+ 21 
+ 22 數據結構：
+ 23     1.服務端如何知道客戶端的需求
+ 24     #define MT_REG 1  //注冊帳號(message type)
+ 25     #define MT_LOG 2  //用戶登錄
+ 26     #define MT_EXT 3  //用戶退出
+ 27     #define MT_ADD 4  //添加好友
+ 28     #define MT_FND 5  //查找好友
+ 29     #define MT_DEL 6  //刪除好友
+ 30     #define MT_MSG 7  //傳送消息
+ 31     #define  MT_PAS 8  //修改密碼
+ 32     #define MT_NME 9  //修改昵稱
+ 33     #define MT_RET 10 //給客戶端的回饋
+ 34 
+ 35     2.用戶信息的存放目錄
+ 36     #define USERS_DIR "./USERS/"
+ 37 
+ 38     3.用戶帳號密碼信息文件
+ 39     #define USERS_INFO_FILE "./passwd.txt"
+ 40 
+ 41     4.服務端綁定的端口號
+ 42 #define PORT 5050
+ 43 
+ 44     5.服務端IP地址
+ 45 #define SER_IP "127.0.0.1"
+ 46 
+ 47     6.緩衝區大小
+ 48 #define BUFSIZE 256
+ 49 
+ 50     7.用戶帳號結構
+ 51     struct USER
+ 52     {
+ 53         int u_num; //QQ_number
+ 54         char u_name[NAMESIZE + 1];  //昵稱
+ 55     };
+ 56 
+ 57     8.昵稱大小
+ 58 #define NAMESIZE 21
+ 59 
+ 60     9.消息結構
+ 61     struct MSG
+ 62     {
+ 63         int m_type;  //消息的類形
+ 64         struct USER m_send;  //發送方
+ 65         struct USER m_recv;  //接收方
+ 66         char m_msg[BUFSIZE];  //消息內容
+ 67     };
+ 68 
+
